@@ -1,6 +1,6 @@
 "use client";
 
-import { Event } from "@/app/lib/types";
+import { Event } from "@/lib/types";
 import Image from "next/image";
 import Link from "next/link";
 import posthog from "posthog-js";

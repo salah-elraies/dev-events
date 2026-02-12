@@ -1,6 +1,6 @@
 import EventCard from "@/components/EventCard";
 import ExploreBtn from "@/components/ExploreBtn";
-import { Event } from "@/app/lib/types";
+import { Event } from "@/lib/types";
 
 const events: Event[] = [
   {
