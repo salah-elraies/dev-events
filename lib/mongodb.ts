@@ -3,11 +3,6 @@ import mongoose, { Connection } from "mongoose";
 // MongoDB connection string from environment variables
 const MONGODB_URI = process?.env?.MONGODB_URI;
 
-// Validate that MONGODB_URI is defined
-if (!MONGODB_URI) {
-  throw new Error("Please define the MONGODB_URI environment variable");
-}
-
 // Define the shape of the cached connection object
 interface MongooseCache {
   conn: Connection | null;
@@ -32,6 +27,11 @@ if (!global.mongoose) {
  * Connects to MongoDB using Mongoose with connection caching.
  * Returns the cached connection if available, otherwise creates a new one.
  */
+
+// Validate that MONGODB_URI is defined
+if (!MONGODB_URI) {
+  throw new Error("Please define the MONGODB_URI environment variable");
+}
 async function connectToDatabase(): Promise<Connection> {
   // Return cached connection if it exists
   if (cached.conn) {
