@@ -1,0 +1,37 @@
+[
+  {
+    "event": "explore_events_clicked",
+    "description": "User clicked the Explore Events button on the home page to navigate to events section",
+    "file": "components/ExploreBtn.tsx"
+  },
+  {
+    "event": "event_card_clicked",
+    "description": "User clicked on an event card to view event details",
+    "file": "components/EventCard.tsx"
+  },
+  {
+    "event": "nav_link_clicked",
+    "description": "User clicked a navigation link in the navbar",
+    "file": "components/Navbar.tsx"
+  },
+  {
+    "event": "profile_viewed",
+    "description": "User viewed a specific profile page",
+    "file": "app/profile/[id]/page.tsx"
+  },
+  {
+    "event": "error_occurred",
+    "description": "An error occurred and was displayed to the user",
+    "file": "app/error.tsx"
+  },
+  {
+    "event": "error_retry_clicked",
+    "description": "User clicked the Try Again button after an error",
+    "file": "app/error.tsx"
+  },
+  {
+    "event": "api_request_received",
+    "description": "Server-side: API endpoint received a request",
+    "file": "app/api/route.ts"
+  }
+]
