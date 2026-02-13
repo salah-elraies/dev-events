@@ -1,22 +1,22 @@
 "use client";
 
-import { Event } from "@/lib/types";
+import { IEvent } from "@/database";
 import Image from "next/image";
 import Link from "next/link";
 import posthog from "posthog-js";
 
 export default function EventCard({
+  _id,
   title,
-  image,
   slug,
-  date,
-  id,
   location,
+  date,
   time,
-}: Event) {
+  image,
+}: IEvent) {
   const handleClick = () => {
     posthog.capture("event_card_clicked", {
-      event_id: id,
+      event_id: _id,
       event_title: title,
       event_slug: slug,
       event_location: location,
@@ -28,7 +28,7 @@ export default function EventCard({
     <Link
       href={`/events/${slug}`}
       className="event-card"
-      id={id.toString()}
+      id={_id.toString()}
       onClick={handleClick}
     >
       <Image

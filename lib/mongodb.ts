@@ -1,7 +1,8 @@
 import mongoose, { Connection } from "mongoose";
+// cloudinary to upload images to cloudinary
 
 // MongoDB connection string from environment variables
-const MONGODB_URI = process?.env?.MONGODB_URI;
+const MONGODB_URI = process?.env?.MONGO_URI_KEY;
 
 // Define the shape of the cached connection object
 interface MongooseCache {
