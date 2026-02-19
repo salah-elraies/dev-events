@@ -1,65 +1,20 @@
 import EventCard from "@/components/EventCard";
 import ExploreBtn from "@/components/ExploreBtn";
-import { Event } from "@/lib/types";
+import { IEvent } from "@/database";
+import { cacheLife } from "next/cache";
 
-const events: Event[] = [
-  {
-    id: 1,
-    title: "Hackathon 2024",
-    date: "2026-03-13",
-    image: "/images/event1.png",
-    slug: "hackathon-2024",
-    location: "San Francisco",
-    time: "10:00 AM",
-  },
-  {
-    id: 2,
-    title: "Dev Meetup",
-    date: "2027-10-20",
-    image: "/images/event2.png",
-    slug: "dev-meetup",
-    location: "New York",
-    time: "2:00 PM",
-  },
-  {
-    id: 3,
-    title: "Tech Conference",
-    date: "2027-11-15",
-    image: "/images/event3.png",
-    slug: "tech-conference",
-    location: "Los Angeles",
-    time: "2:00 PM",
-  },
-  {
-    id: 4,
-    title: "Startup Pitch Night",
-    date: "2027-12-05",
-    image: "/images/event4.png",
-    slug: "startup-pitch-night",
-    location: "Austin",
-    time: "6:00 PM",
-  },
-  {
-    id: 5,
-    title: "Dev Meetup",
-    date: "2028-01-20",
-    image: "/images/event5.png",
-    slug: "dev-meetup",
-    location: "Egypt",
-    time: "7:00 PM",
-  },
-  {
-    id: 6,
-    title: "Startup Pitch Night",
-    date: "2027-10-20",
-    image: "/images/event6.png",
-    slug: "startup-pitch-night",
-    location: "New York",
-    time: "2:00 PM",
-  },
-];
+// , {
+//   cache: "force-cache",
+// }
+const BASE_URL = process.env.NEXT_PUBLIC_BASE_URL || "http://localhost:3000";
+export default async function Home() {
+  "use cache";
+  cacheLife("hours"); // Cache for 1 hour
+  const res = await fetch(`${BASE_URL}/api/events?featured=true`, {
+    next: { revalidate: 3600 }, // Cache for 1 hour, then revalidate
+  });
+  const { events } = await res.json();
 
-export default function Home() {
   return (
     <section>
       <h1 className="text-center">
@@ -71,11 +26,13 @@ export default function Home() {
       <div className="mt-20 space-y-7">
         <h3>Featured Events</h3>
         <ul className="events">
-          {events.map((event) => (
-            <li key={event.id}>
-              <EventCard {...event} />
-            </li>
-          ))}
+          {events &&
+            events.length > 0 &&
+            events.map((event: IEvent) => (
+              <li key={event._id.toString()}>
+                <EventCard {...event} />
+              </li>
+            ))}
         </ul>
       </div>
     </section>
