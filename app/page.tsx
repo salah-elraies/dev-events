@@ -1,14 +1,20 @@
 import EventCard from "@/components/EventCard";
 import ExploreBtn from "@/components/ExploreBtn";
 import { IEvent } from "@/database";
+import { cacheLife } from "next/cache";
 
 // , {
 //   cache: "force-cache",
 // }
 const BASE_URL = process.env.NEXT_PUBLIC_BASE_URL || "http://localhost:3000";
 export default async function Home() {
-  const res = await fetch(`${BASE_URL}/api/events?featured=true`);
+  "use cache";
+  cacheLife("hours"); // Cache for 1 hour
+  const res = await fetch(`${BASE_URL}/api/events?featured=true`, {
+    next: { revalidate: 3600 }, // Cache for 1 hour, then revalidate
+  });
   const { events } = await res.json();
+
   return (
     <section>
       <h1 className="text-center">

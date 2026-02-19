@@ -37,6 +37,10 @@ export default function EventCard({
         className="poster"
         width={410}
         height={300}
+        priority={false} // Set to true for first image
+        loading="lazy"
+        placeholder="blur"
+        blurDataURL="/images/event-full.png"
       />
 
       <div className="flex flex-row gap-2">
