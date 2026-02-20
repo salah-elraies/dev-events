@@ -1,16 +1,30 @@
 "use client";
 
+import { createBooking } from "@/lib/actions/booking.actions";
 import { useState } from "react";
 
-export default function BookEvent() {
+export default function BookEvent({
+  eventId,
+  slug,
+}: {
+  eventId: string;
+  slug: string;
+}) {
   const [email, setEmail] = useState("");
   const [submitted, setSubmitted] = useState(false);
 
-  const handleSubmit = (e: React.SubmitEvent) => {
+  const handleSubmit = async (e: React.SubmitEvent) => {
     e.preventDefault();
-    // Here you would typically send the email to your backend or an API
-    console.log("Email submitted:", email);
-    setSubmitted(true);
+    const { success, error } = await createBooking({
+      eventId,
+      email,
+      slug,
+    });
+    if (success) {
+      setSubmitted(true);
+    } else {
+      console.error("Failed to create booking:", error);
+    }
   };
 
   return (
