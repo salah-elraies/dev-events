@@ -40,7 +40,7 @@ const BookingSchema = new Schema<IBooking>(
 BookingSchema.pre("save", async function () {
   // Only validate eventId if it's new or modified
   if (this.isModified("eventId")) {
-    const eventExists = await Event.exists({ _id: this.eventId });
+    const eventExists = await Event.exists({ _id: this.eventId.toString() });
 
     if (!eventExists) {
       throw new Error(`Event with ID ${this.eventId} does not exist`);
