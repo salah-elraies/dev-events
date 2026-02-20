@@ -7,9 +7,9 @@ import { IEvent } from "@/database";
 // }
 const BASE_URL = process.env.NEXT_PUBLIC_BASE_URL || "http://localhost:3000";
 export default async function Home() {
-  // const res = await fetch(`${BASE_URL}/api/events?featured=true`);
-  // const { events } = await res.json();
-  const events: IEvent[] = []; // Placeholder for events, replace with actual data fetching logic
+  const res = await fetch(`${BASE_URL}/api/events?featured=true`);
+  const { events } = await res.json();
+  // const events: IEvent[] = []; // Placeholder for events, replace with actual data fetching logic
   return (
     <section>
       <h1 className="text-center">
