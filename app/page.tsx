@@ -1,15 +1,18 @@
 import EventCard from "@/components/EventCard";
 import ExploreBtn from "@/components/ExploreBtn";
 import { IEvent } from "@/database";
+import { cacheLife } from "next/cache";
 
 // , {
 //   cache: "force-cache",
 // }
 const BASE_URL = process.env.NEXT_PUBLIC_BASE_URL || "http://localhost:3000";
 export default async function Home() {
+  "use cache";
+  cacheLife("hours"); // Cache for 1 hour
   const res = await fetch(`${BASE_URL}/api/events?featured=true`);
   const { events } = await res.json();
-  // const events: IEvent[] = []; // Placeholder for events, replace with actual data fetching logic
+
   return (
     <section>
       <h1 className="text-center">
