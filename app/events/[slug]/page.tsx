@@ -94,6 +94,7 @@ export default async function Event({
       organizer,
       tags,
       agenda,
+      _id,
     },
   } = await res.json();
 
@@ -165,7 +166,7 @@ export default async function Event({
               ) : (
                 <p className="text-sm">Be the first to book this event!</p>
               )}
-              <BookEvent />
+              <BookEvent eventId={_id} slug={slug} />
             </div>
           </aside>
         </div>
